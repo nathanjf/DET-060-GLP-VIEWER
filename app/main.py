@@ -173,10 +173,10 @@ def login():
 
         game.setGoalEnc(5)
         game.setQRandUpper(len(encounters) - 1)
-        game.setMRandUpper(len(listdir(os.path.abspath(os.getcwd() + MAP_PATH))) - 1)
+        game.setMRandUpper(len(listdir( '.' + os.path.abspath(os.getcwd() + MAP_PATH))) - 1)
         
         print(len(encounters))
-        print(len(listdir(os.path.abspath(os.getcwd() + MAP_PATH))))
+        print(len(listdir( '.' + os.path.abspath(os.getcwd() + MAP_PATH))))
 
         game.selectMarch()
         game.selectEncounter()
