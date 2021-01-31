@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <div id="gameGroup" name={{ game.group }}></div>
-    <div id="userEnc" name={{ user.compEnc }}></div>
+    <div id="gameGroup" name="{{ game.group }}"></div>
+    <div id="userEnc" name="{{ user.compEnc }}"></div>
 
     <div class="sideBar">
 
@@ -27,7 +27,7 @@
                 
             <div class='bodyDiv'>
                 <p>
-                    <b>Location:</b> USC<br>
+                    <b>Location:</b> {{ game.location }}<br>
                     <b>Radio Channel:</b> {{ game.frequency }}<br>
                     <b>Call Sign:</b> {{ game.callsign }}<br>
                 </p>
@@ -117,6 +117,7 @@
     <script>
     (function() {
         var status = $('.status');
+        var status1 = $('.status1');
         var tm1 = document.getElementById("gameGroup").getAttribute("name");
         var tm2 = document.getElementById("userEnc").getAttribute("name")
             poll = function() {
@@ -139,12 +140,31 @@
                 console.log('Error!');
                 }
             });
+            $.ajax({
+                url: '/user/status',
+                dataType: 'json',
+                type: 'get',
+                success: function(data1) { // check if available
+                status1.text('Offline!');
+                if (parseFloat(data1.age) > 25.0) {
+                        window.location.href = "/logout"
+                }
+                if ( data.live ) { // get and check data value
+                    status1.text(data.info); // get and print data string
+                    clearInterval(pollInterval); // optional: stop poll function   
+                }
+                },
+                error: function() { // error logging
+                console.log('Error!');
+                }
+            });
             },
             pollInterval = setInterval(function() { // run function every 2000 ms
             poll();
-            }, 2000);
+            }, 3000);
             poll(); // also run function on init
         })();
     </script>
+
 
 {% endblock %}

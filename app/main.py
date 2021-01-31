@@ -5,6 +5,8 @@ from flask_login import current_user, login_user, logout_user, login_required
 from flask_migrate import current
 from werkzeug.urls import url_parse
 
+from datetime import datetime
+
 import app
 from app import create_app
 from app import db
@@ -54,16 +56,42 @@ CALLSIGN_LIST = [
     'SHRIMP'
 ]
 
-@sched.task('interval', id='do_job_1', seconds=60, misfire_grace_time=900)
+LOCATION_LIST = [
+    'USC VILLAGE TARGET',
+    'USC VILLAGE TRADER JOE\'S',
+    'UCLA',
+    'USC COLISEUM',
+    'USC PED FRONT STEPS',
+    'COL WYNAN\'S OFFICE',
+    'C/JORDAN\'S BARBEQUE'
+]
+
+@sched.task('interval', id='do_job_1', seconds=120, misfire_grace_time=900)
 def job1():
     with db.app.app_context(): 
-        print("Running job")
+        
+        curTime = datetime.now()
+        users = User.query.all()
+        if len(users) > 0:
+            for user in users:
+                userTime = datetime.strptime(user.timeStamp, "%d/%m/%Y %H:%M:%S")
+                deltaTime = (curTime - userTime)
+                deltaTime = deltaTime.total_seconds()/60;
+                if deltaTime >= 30:
+                    print('Deleting User: ' + user.group)
+                    db.session.delete(user)
+                    db.session.commit()
+    
         games = Game.query.all()
-        for game in games:
-            if User.query.filter_by(group=game.group).first() == None:
-                print("Removed Game", game.group)
-                db.session.delete(game)
-                db.session.commit()
+        if len(games) > 0:
+            for game in games:
+                gameTime = datetime.strptime(game.timeStamp, "%d/%m/%Y %H:%M:%S")
+                deltaTime = (curTime - gameTime)
+                deltaTime = deltaTime.total_seconds()/60;
+                if deltaTime >= 30:
+                    print('Deleting Game: ' + game.group)
+                    db.session.delete(game)
+                    db.session.commit()
 
 @main.route('/')
 @main.route('/index')
@@ -71,16 +99,29 @@ def index():
     return redirect(url_for('main.login'))
 
 @main.route('/game/<group>/status', methods=['GET'])
+@login_required
 def gameStatus(group):
     user = current_user
     game = Game.query.filter_by(group=user.group).first()
     return jsonify({'compEnc' : game.compEnc})
 
+@main.route('/user/status', methods=['GET'])
+@login_required
+def userStatus():
+    user = current_user
+    age = (datetime.now() - datetime.strptime(user.timeStamp, "%d/%m/%Y %H:%M:%S"))
+    age = age.total_seconds()
+    age = age/60
+    return jsonify({'age': age})
+
 @main.route('/game/<group>', methods=['GET', 'POST'])
+@login_required
 def game(group):
     user = current_user
     game = Game.query.filter_by(group=user.group).first()
     encounter = Encounter.query.filter_by(number=game.curEnc).first()
+
+    user.updateTime()
 
     user.compEnc = game.compEnc
     db.session.commit()
@@ -99,12 +140,17 @@ def game(group):
     # If next is hit by POC
     if nextForm.submit3.data and nextForm.validate():
         encounter = None
+        
+        game.updateTime()
+        db.session.commit()
 
         if int(game.compEnc) < int(game.goalEnc):
             game.selectEncounter()
             game.selectMarch()
 
             game.completedEncounter()
+            
+            game.location = LOCATION_LIST[randint(0, len(LOCATION_LIST) - 1)]
 
             db.session.commit()
 
@@ -128,9 +174,7 @@ def game(group):
     else:
         map = str(randint(0, int(game.randMUpper)))
 
-    data = {'group' : game.group}
-
-    return render_template(['game.html', 'base.html'], user=user, game=game, map=map, encounter=encounter, nextForm=nextForm, refreshForm=refreshForm, data=data)
+    return render_template(['game.html', 'base.html'], user=user, game=game, map=map, encounter=encounter, nextForm=nextForm, refreshForm=refreshForm)
 
 @main.route('/login', methods=['GET', 'POST'])
 def login():
@@ -178,6 +222,9 @@ def login():
 
         game.selectMarch()
 
+        game.location = LOCATION_LIST[randint(0, len(LOCATION_LIST) - 1)]
+        game.updateTime()
+
         db.session.add(game)
         db.session.commit()
 
@@ -204,11 +251,5 @@ def logout():
         #    db.session.delete(user)
         #    db.session.commit()
 
-    user = User.query.filter_by(id=current_user.id).first()
-
-    logout_user()
-
-    db.session.delete(user)
-    db.session.commit()
-    
+    logout_user()    
     return redirect(url_for('main.index'))

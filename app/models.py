@@ -15,9 +15,14 @@ def load_user(id):
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
 
+    timeStamp = db.Column(db.String(120), index=True)
+
     group = db.Column(db.String(120), index=True)
     compEnc = db.Column(db.String(120), index=True)
     permission = db.Column(db.String(120), index=True)
+
+    def updateTime(self):
+        self.timeStamp = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
 
     def __repr__(self):
         return '<User {}>'.format(self.group)
@@ -25,10 +30,13 @@ class User(UserMixin, db.Model):
 class Game(db.Model):
     id = db.Column(db.Integer, primary_key=True)
 
+    timeStamp = db.Column(db.String(120), index=True)
+
     mode = db.Column(db.String(120), index=True, default='GAME')
 
     group = db.Column(db.String(120), index=True)
 
+    location = db.Column(db.String(120), index=True)
     frequency = db.Column(db.String(120), index=True)
     callsign = db.Column(db.String(120), index=True)
 
@@ -40,6 +48,9 @@ class Game(db.Model):
 
     curEnc = db.Column(db.String(120), index=True)
     curMap = db.Column(db.String(120), index=True)
+
+    def updateTime(self):
+        self.timeStamp = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
 
     def victory(self):
         self.mode = 'VICTORY'
