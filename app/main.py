@@ -123,11 +123,10 @@ def game(group):
     if game.mode == "VICTORY":
         return redirect(url_for('main.logout'))
 
-    map = listdir(os.getcwd() + MAP_PATH)
-    if len(map) == 0:
+    if game.randMUpper == '0':
         map = 'DEFAULTTOERRORIMAGE'
     else:
-        map = map[int(game.curMap)]
+        map = str(randint(0, int(game.randMUpper)))
 
     data = {'group' : game.group}
 
@@ -173,10 +172,9 @@ def login():
 
         game.setGoalEnc(5)
         game.setQRandUpper(len(encounters) - 1)
-        game.setMRandUpper(len(listdir( '.' + os.path.abspath(os.getcwd() + MAP_PATH))) - 1)
+        game.setMRandUpper(0)
         
         print(len(encounters))
-        print(len(listdir( '.' + os.path.abspath(os.getcwd() + MAP_PATH))))
 
         game.selectMarch()
         game.selectEncounter()
