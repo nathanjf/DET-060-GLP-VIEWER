@@ -63,7 +63,7 @@ def job1():
             if User.query.filter_by(group=game.group).first() == None:
                 print("Removed Game", game.group)
                 db.session.delete(game)
-                db.commit()
+                db.session.commit()
 
 @main.route('/')
 @main.route('/index')
