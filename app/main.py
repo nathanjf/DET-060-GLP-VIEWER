@@ -170,7 +170,7 @@ def login():
         game.generateFrequency()
         game.applyCallsign(CALLSIGN_LIST[randint(0,len(CALLSIGN_LIST)-1)] + ' ' + str(randint(0,20)))
 
-        game.setGoalEnc(5)
+        game.setGoalEnc(20)
         game.setQRandUpper(len(encounters) - 1)
         game.setMRandUpper(0)
         

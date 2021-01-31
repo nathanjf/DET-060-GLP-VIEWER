@@ -80,7 +80,7 @@
         "solution": "TCCC\n1.Apply Limb Tourniquet(s)\n2.Ready for MEDEVAC\n\n9-Line MEDEVAC\n1.Location\n2.Radio + Call Sign\n3.2A\n4.A\n5.2A \n6.P\n7.Mark w any\n8.A\n9.N\/A"
     },
     "20": {
-        "problem": "Your team happens upon a lone rabbit, as you all are distracted and teaching it to say �what's up doc� an enemy sniper yells �i'm hunting wabbits� and shoots your team leader through their left arm in an attempt to hunt said \"wabbit\".  Their left arm is gushing blood, perform TCCC and call in a MEDEVAC for your downed team member before the sniper goes for another shot.",
+        "problem": "Your team happens upon a lone rabbit, as you all are distracted and teaching it to say \"what's up doc\" an enemy sniper yells �i'm hunting wabbits� and shoots your team leader through their left arm in an attempt to hunt said \"wabbit\".  Their left arm is gushing blood, perform TCCC and call in a MEDEVAC for your downed team member before the sniper goes for another shot.",
         "solution": "TCCC\n1.Limb tourniquet to stop bleeding\n2.Ready for MEDEVAC\n\n9-Line MEDEVAC\n1.Location\n2.Radio + Call Sign\n3.1A\n4.A\n5.1A\n6.X\n7.Mark w any\n8.A\n9.N\/A"
     }
 }
