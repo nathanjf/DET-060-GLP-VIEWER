@@ -20,7 +20,7 @@ main = Blueprint('main', __name__)
 
 #app = create_app()
 
-MAP_PATH = os.sep + 'static' + os.sep + 'images' + os.sep + 'maps'
+MAP_PATH = os.sep + 'app' + os.sep + 'static' + os.sep + 'images' + os.sep + 'maps'
 CALLSIGN_LIST = [
     'SALAMANDER',
     'FROG',
@@ -173,10 +173,10 @@ def login():
 
         game.setGoalEnc(5)
         game.setQRandUpper(len(encounters) - 1)
-        game.setMRandUpper(len(listdir(os.getcwd() + MAP_PATH)) - 1)
+        game.setMRandUpper(len(listdir(os.path.abspath(os.getcwd() + MAP_PATH))) - 1)
         
         print(len(encounters))
-        print(len(listdir(os.getcwd() + MAP_PATH)))
+        print(len(listdir(os.path.abspath(os.getcwd() + MAP_PATH))))
 
         game.selectMarch()
         game.selectEncounter()
