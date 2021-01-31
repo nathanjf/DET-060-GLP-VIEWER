@@ -66,7 +66,9 @@ class Game(db.Model):
         if int(self.randQUpper) <= 0:
             self.curEnc = str(0)
         else:
-            self.curEnc = str(randint(0, int(self.randQUpper)))
+            self.curEnc = str(int(self.curEnc) + 1)
+            if self.curEnc == self.randQUpper:
+                self.curEnc = str(0)
 
     def selectMarch(self):
         if int(self.randMUpper) <= 0:

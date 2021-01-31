@@ -165,7 +165,7 @@ def login():
         # Count amount of encounters and count amount of images in the map folder
         encounters = Encounter.query.all()
 
-        game = Game(group=createForm.group.data, compEnc='1', mode='GAME')
+        game = Game(group=createForm.group.data, compEnc='1', mode='GAME', curEnc='0')
         
         game.generateFrequency()
         game.applyCallsign(CALLSIGN_LIST[randint(0,len(CALLSIGN_LIST)-1)] + ' ' + str(randint(0,20)))
@@ -177,7 +177,6 @@ def login():
         print(len(encounters))
 
         game.selectMarch()
-        game.selectEncounter()
 
         db.session.add(game)
         db.session.commit()
