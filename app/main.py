@@ -20,7 +20,7 @@ main = Blueprint('main', __name__)
 
 #app = create_app()
 
-MAP_PATH = os.sep + 'app' + os.sep + 'static' + os.sep + 'images' + os.sep + 'maps'
+MAP_PATH = os.sep + 'static' + os.sep + 'images' + os.sep + 'maps'
 CALLSIGN_LIST = [
     'SALAMANDER',
     'FROG',
