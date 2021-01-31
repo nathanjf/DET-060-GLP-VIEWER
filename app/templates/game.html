@@ -1,0 +1,150 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div id="gameGroup" name={{ game.group }}></div>
+    <div id="userEnc" name={{ user.compEnc }}></div>
+
+    <div class="sideBar">
+
+        <div class= flexBodyProxy>
+            <div class='headerDiv'>
+                <h2>Directions</h2>
+            </div>
+    
+            <div class='bodyDiv'>
+                <ol>
+                    <li>Solve the current encounter</li>
+                    <li>If neccessary use the Team Information to make any radio calls</li>
+                    <li>Transit to the next location by calling all the proper commands</li>
+                </ol>
+            </div>
+        </div>
+        
+        <div class="flexBodyProxy">
+            <div class='headerDiv'>
+                <h2>Team Information</h2>
+            </div>
+                
+            <div class='bodyDiv'>
+                <p>
+                    <b>Location:</b> USC<br>
+                    <b>Radio Channel:</b> {{ game.frequency }}<br>
+                    <b>Call Sign:</b> {{ game.callsign }}<br>
+                </p>
+            </div>
+        </div>
+    
+        <div class="flexBodyProxy">
+            {% if encounter %}
+
+                <div class='headerDiv'>
+                    <h2>Current Encounter: {{ game.compEnc }}</h2>
+                </div>
+                
+                <div class='bodyDiv'>
+                    <span style="white-space: pre-line">{{ encounter.problem }}</span>
+                </div>
+
+            {% endif %}
+        </div>
+
+        {% if user.permission == '2' %}
+
+            <div class='flexBodyProxy'>
+                <div class='headerDiv poc'>
+                    <h2>Solution:</h2>
+                </div>
+                    
+                <div class='bodyDiv'>
+                    <span style="white-space: pre-line">{{ encounter.solution }}</span>
+                </div>
+            </div>
+
+            <div class='flexBodyProxy'>
+                <div class='headerDiv poc'>
+                    <h2>Next Encounter</h2>
+                </div>
+                    
+                <div class='bodyDiv'>
+                    <form action="" method="post" novalidate>
+                        {{ nextForm.hidden_tag() }}
+                        <p>
+                            {{ nextForm.submit3() }}
+                        </p>
+                    </form>
+                </div>
+            </div>
+
+        {% endif %}
+
+    </div>
+
+    <div class = "mainContent">
+        <div class="flexBodyProxy">
+            <div class='headerDiv'>
+                <h2>Marching Route</h2>
+            </div>
+
+            <div class='bodyDiv'>
+                {% if map == 'DEFAULTTOERRORIMAGE' %}
+                    <img src={{ url_for("static", filename="images/assets/mapErrorImage.jpg") }}></img>
+                {% endif %}
+                
+                {% if map != 'DEFAULTTOERRORIMAGE' %}
+                    <img src={{ url_for("static", filename="images/maps/" + map) }}></img>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!--
+    <div class='headerDiv'>
+        <h3>Refresh Page to See Updated Results</h3>
+    </div>
+
+    <div class='bodyDiv'>
+        <form action="" method="post" novalidate>
+            {{ refreshForm.hidden_tag() }}
+            <p>
+                {{ refreshForm.submit4() }}
+            </p>
+        </form>
+    </div>
+    -->
+
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script>
+    (function() {
+        var status = $('.status');
+        var tm1 = document.getElementById("gameGroup").getAttribute("name");
+        var tm2 = document.getElementById("userEnc").getAttribute("name")
+            poll = function() {
+            $.ajax({
+                url: '/game/' + tm1 + '/status',
+                dataType: 'json',
+                type: 'get',
+                success: function(data) { // check if available
+                status.text('Offline!');
+                if (parseInt(tm2) < parseInt(data.compEnc)) {
+                        window.location.href = "/index"
+                }
+                if ( data.live ) { // get and check data value
+                    status.text(data.info); // get and print data string
+                    clearInterval(pollInterval); // optional: stop poll function
+                     
+                }
+                },
+                error: function() { // error logging
+                console.log('Error!');
+                }
+            });
+            },
+            pollInterval = setInterval(function() { // run function every 2000 ms
+            poll();
+            }, 2000);
+            poll(); // also run function on init
+        })();
+    </script>
+
+{% endblock %}

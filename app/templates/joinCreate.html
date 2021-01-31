@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class='mainContent'>
+        <div class='flexBodyProxy'>
+            <div class='headerDiv'>
+                <h2>OGV (Online GLP Viewer)</h2>
+            </div>
+            <div class='bodyDiv'>
+                <img src={{url_for('static', filename='/images/assets/mainBackup.png')}}>
+            </div>
+        </div>
+    </div>
+
+    <div class='sideBar'>
+        
+        <div class= flexBodyProxy>
+            <div class='headerDiv'>
+                <h2>Description</h2>
+            </div>
+    
+            <div class='bodyDiv'>
+                <ol>
+                    <li>Join or create a group by entering a group code</li>
+                    <li>Answer the problem presented using ROTC relevant knowledge and procedures</li>
+                    <li>Call all the commands that would be required to march to the location on the map</li>
+                    <li>Repeat 20 times</li>
+                </ol>
+            </div>
+        </div>
+
+        <div class=flexBodyProxy>
+            <div class='headerDiv'>
+                <h2>Join A Game</h2>
+            </div>
+
+            <div class='bodyDiv'>
+                <form action="" method="post" novalidate>
+                    {{ joinForm.hidden_tag() }}
+                    <p>
+                        {{ joinForm.group(size=32, autocomplete="off") }}<br>
+                        {% for error in joinForm.group.errors %}
+                        <span style='color: red;'>
+                            *{{ error }}
+                        </span>
+                        {% endfor %}
+                    </p>
+                    <p>
+                        {{ joinForm.submit1() }}
+                    </p>
+                </form>
+            </div>
+        </div>
+
+        <div class=flexBodyProxy>
+            <div class='headerDiv'>
+                <h2>Create A Game</h2>
+            </div>
+
+            <div class='bodyDiv'>
+                <form action="" method="post" novalidate>
+                    {{ createForm.hidden_tag() }}
+                    <p>
+                        {{ createForm.group(size=32, autocomplete="off") }}<br>
+                        {% for error in createForm.group.errors %}
+                        <span style='color: red;'>
+                            *{{ error }}
+                        </span>
+                        {% endfor %}
+                    </p>
+                    <p>
+                        {{ createForm.submit2() }}
+                    </p>
+                </form>
+            </div>
+        </div>
+    
+    </div>
+
+{% endblock %}
