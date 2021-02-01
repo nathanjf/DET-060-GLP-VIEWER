@@ -47,6 +47,7 @@ h3 {
     margin: 0;
     padding: 20;
     text-align: left;
+    color: white
 }
 
 .sigDiv {
@@ -124,7 +125,8 @@ span {
     background-color: #4A4A4A;
     width:100%;
     min-height: 10;
-    z-index: auto;
+    position:relative;
+    z-index: 0;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
@@ -176,6 +178,11 @@ span {
     background-color: #4A4A4A; 
 }
 
+.subbodyDiv {
+
+    background-color: #BCBCBC;
+}
+
 .headerDiv.poc {
     background-color: #77140B;
 }
@@ -215,4 +222,9 @@ input {
     padding: 5;
     margin: 0;
     width: 100%;
+}
+
+.losingSanity:{
+    min-height: 10;
+    height: 10;
 }

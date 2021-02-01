@@ -1,7 +1,11 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <div class='sepDiv'></div>
+    <div class='sepDiv'>
+        <h2>
+            <a href={{ url_for('main.logout') }}>Main Menu</a> | <a href={{ url_for('main.browser') }}>Game Browser</a>
+        </h2>
+    </div>
     <div class='mainContent'>
         <div class='flexBodyProxy'>
             <div class='headerDiv'>

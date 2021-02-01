@@ -1,7 +1,11 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <div class='sepDiv'> <h2><a href={{ url_for('main.logout') }}>Main Menu</a> | Group Code: {{ game.group }}</h2></div>
+    <div class='sepDiv'> 
+        <h2>
+            <a href={{ url_for('main.logout') }}>Main Menu</a> | Group Code: {{ game.group }}
+        </h2>
+    </div>
 
 
     <div id="gameGroup" name="{{ game.group }}"></div>
@@ -30,9 +34,9 @@
                 
             <div class='bodyDiv'>
                 <p>
-                    <b>Location:</b> {{ game.location }}<br>
                     <b>Radio Channel:</b> {{ game.frequency }}<br>
                     <b>Call Sign:</b> {{ game.callsign }}<br>
+                    <b>Location:</b> {{ game.location }}<br>
                 </p>
             </div>
         </div>
@@ -102,11 +106,32 @@
                     </form>
                 </div>
             </div>
+
+            <div class='flexBodyProxy'>
+                
+                <div class='headerDiv poc'>
+                    <h2>Mark Game For Deletion</h2>
+                </div>
+                    
+                <div class='bodyDiv'>
+                    
+                    <form action="" method="post" novalidate class="formBody">
+                        <p>Delete The Current Game</p>
+                        {{ delForm.hidden_tag() }}
+                        <p>
+                            {{ delForm.submit11() }}
+                        </p>
+                    </form>
+                </div>
+            </div>
         {% endif %}
 
     </div>
 
     <!--
+        LMAO THIS WAS SO STUPID.  
+        I DONT KNOW WHY I EVER THOUGH THIS WAS A SOLUTION
+
     <div class='headerDiv'>
         <h3>Refresh Page to See Updated Results</h3>
     </div>
@@ -121,11 +146,10 @@
     </div>
     -->
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src={{ url_for("static", filename="javascript/jquery.js")}}></script>
     <script>
     (function() {
         var status = $('.status');
-        var status1 = $('.status1');
         var tm1 = document.getElementById("gameGroup").getAttribute("name");
         var tm2 = document.getElementById("userEnc").getAttribute("name")
             poll = function() {
@@ -136,7 +160,10 @@
                 success: function(data) { // check if available
                 status.text('Offline!');
                 if (parseInt(tm2) < parseInt(data.compEnc)) {
-                        window.location.href = "/index"
+                    window.location.href = "/index"
+                }
+                if(parseFloat(data.age) > 30.0) {
+                    window.location.href = "/logout"
                 }
                 if ( data.live ) { // get and check data value
                     status.text(data.info); // get and print data string
@@ -148,28 +175,10 @@
                 console.log('Error!');
                 }
             });
-            $.ajax({
-                url: '/user/status',
-                dataType: 'json',
-                type: 'get',
-                success: function(data1) { // check if available
-                status1.text('Offline!');
-                if (parseFloat(data1.age) > 25.0) {
-                        window.location.href = "/logout"
-                }
-                if ( data.live ) { // get and check data value
-                    status1.text(data.info); // get and print data string
-                    clearInterval(pollInterval); // optional: stop poll function   
-                }
-                },
-                error: function() { // error logging
-                console.log('Error!');
-                }
-            });
             },
             pollInterval = setInterval(function() { // run function every 2000 ms
             poll();
-            }, 5000);
+            }, 1000);
             poll(); // also run function on init
         })();
     </script>
