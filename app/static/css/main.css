@@ -1,19 +1,14 @@
 body {
     background-color: #242424;
     font-family: Arial, Helvetica, sans-serif;
-    -webkit-transform:scale(0.9);
-    -moz-transform:scale(0.9);
-    -ms-transform:scale(0.9);
-    transform:scale(0.9);
-    -ms-transform-origin:center center;
-    -webkit-transform-origin:center center;
-    -moz-transform-origin:center center;
-    transform-origin:center center;
+    transform-origin: center top;
+    transform: scale(0.9);
+    margin:0;
 }
 
 .blockContentDiv {
     display: block;
-    width: 1000px;
+    width: 1250px;
     padding-top: 20px;
     margin: auto;
     background-color: #242424;
@@ -157,6 +152,10 @@ span {
     text-decoration: none;
 }
 
+.sigDiv a:hover{
+    color: #BCBCBC;
+}
+
 .sepDiv a:link {
     color: white;
     text-decoration: none;
@@ -165,6 +164,10 @@ span {
 .sepDiv a:visited {
     color: white;
     text-decoration: none;
+}
+
+.sepDiv a:hover {
+    color:#BCBCBC;
 }
 
 .flexBodyProxy {
