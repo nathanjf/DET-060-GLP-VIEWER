@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <meta http-equiv="refresh" content="{{'10; url=' + url_for('main.browser') }}"/>
+
+    <div class='sepDiv'> 
+        <h2>
+            <a href={{ url_for('main.logout') }}>Main Menu</a>
+        </h2>
+    </div>
+
+    <div class="sideBar">
+        <div class="flexBodyProxy">
+            <div class="headerDiv">
+                <h2>Instructions</h2>
+            </div>
+            <div class='bodyDiv'>
+                <ol>
+                    <li>Here is a list of all currently active games</li>
+                    <li>You can view the stats of all the games currently running from this page</li>
+                    <li>To join a game you will have to go back to the Main Menu and enter a group code</li>
+                    <li>The page will auto-refresh once every 30s</li>
+                </ol>
+            </div>
+        </div>
+        <div class="flexBodyProxy">
+            <div class="headerDiv">
+                <h2>Stats</h2>
+            </div>
+            <div class='bodyDiv'>
+                <p>Currently Running Games: {{ lenGames }}</p>
+            </div>
+        </div>
+    </div>
+
+    <div class = "mainContent">
+        {% for game in games %}
+            
+        <div class="flexBodyProxy">
+
+                <div class="headerDiv">
+                    <h3>{{game.group}}</h3>
+                </div>
+                <div class='bodyDiv' id="{{ game.group }}">
+                    <p>Completed Encounters: {{ game.curEnc }} / {{ game.goalEnc }}</p>
+                    <p>Current Mode: {{ game.mode }}</p>
+                </div>
+        </div>
+        {% endfor %}
+        
+    </div>
+
+{% endblock %}

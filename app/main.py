@@ -11,7 +11,7 @@ import app
 from app import create_app
 from app import db
 from app.models import User, Game, Encounter, Prompt
-from app.forms import JoinForm, CreateForm, NextForm, RefreshForm, Advance16, JoinFormPOC
+from app.forms import JoinForm, CreateForm, NextForm, RefreshForm, Advance16, JoinFormPOC, DeleteForm
 from app import sched
 
 from flask_apscheduler import APScheduler
@@ -65,11 +65,14 @@ LOCATION_LIST = [
     'ROSENFELD LIBRARY'
 ]
 
-@sched.task('interval', id='do_job_1', seconds=120, misfire_grace_time=900)
+# Purge all users and games that are older than xTime
+@sched.task('interval', id='do_job_1', seconds=90, misfire_grace_time=30)
 def job1():
+    print('job1 Triggered')
     with db.app.app_context(): 
         
         curTime = datetime.now()
+        xTime = 35.0
 
         users = User.query.all()
         if len(users) > 0:
@@ -77,7 +80,7 @@ def job1():
                 userTime = datetime.strptime(user.timeStamp, "%d/%m/%Y %H:%M:%S")
                 deltaTime = (curTime - userTime)
                 deltaTime = deltaTime.total_seconds()/60;
-                if deltaTime >= 30:
+                if deltaTime >= xTime:
                     print('Deleting User: ' + user.group)
                     db.session.delete(user)
                     db.session.commit()
@@ -88,18 +91,19 @@ def job1():
                 gameTime = datetime.strptime(game.timeStamp, "%d/%m/%Y %H:%M:%S")
                 deltaTime = (curTime - gameTime)
                 deltaTime = deltaTime.total_seconds()/60;
-                if deltaTime >= 30:
+                if deltaTime >= xTime:
                     print('Deleting Game: ' + game.group)
                     db.session.delete(game)
                     db.session.commit()
 
-@sched.task('interval', id='do_job_2', seconds=60, misfire_grace_time=900)
+# Purge all games and users that are currently in a victory state
+@sched.task('interval', id='do_job_2', seconds=60, misfire_grace_time=30)
 def job2():
-    print('job2 trigger')
+    print('job2 Triggered')
     with db.app.app_context():
         games = Game.query.all()
         for game in games:
-            if game.mode == 'VICTORY':
+            if game.mode == 'VICTORY' or game.mode == 'MARKDEL':
                 users = User.query.filter_by(group=game.group)
                 for user in users:
                     print('Deleting User: ' + user.group)
@@ -118,17 +122,18 @@ def index():
 @login_required
 def gameStatus(group):
     user = current_user
-    game = Game.query.filter_by(group=user.group).first()
-    return jsonify({'compEnc' : game.compEnc})
-
-@main.route('/user/status', methods=['GET'])
-@login_required
-def userStatus():
-    user = current_user
     age = (datetime.now() - datetime.strptime(user.timeStamp, "%d/%m/%Y %H:%M:%S"))
     age = age.total_seconds()
-    age = age/60
-    return jsonify({'age': age})
+    age = round(age/60, 1)
+    game = Game.query.filter_by(group=user.group).first()
+    return jsonify({'compEnc' : game.compEnc, 'age': str(age)})
+
+@main.route('/browser', methods=['GET', 'POST'])
+def browser():
+    games = Game.query.all()
+    lenGames = len(games)
+
+    return render_template(['browser.html', 'base.html'], games=games, lenGames=lenGames)
 
 @main.route('/game/<group>', methods=['GET', 'POST'])
 @login_required
@@ -139,6 +144,7 @@ def game(group):
     encounter = Encounter.query.filter_by(number=game.curEnc).first()
 
     user.updateTime()
+    game.updateTime()
 
     user.compEnc = game.compEnc
     db.session.commit()
@@ -147,8 +153,18 @@ def game(group):
     if game is None:
         return redirect(url_for('main.logout'))
 
+    if game.mode == "VICTORY" or game.mode == "MARKDEL":
+        return redirect(url_for('main.logout'))
+
     refreshForm = RefreshForm()
     nextForm = NextForm()
+    delForm = DeleteForm()
+
+    if delForm.submit11.data and delForm.validate():
+        game.mode = 'MARKDEL'
+        game.completedEncounter()
+        db.session.commit()
+        return redirect(url_for('main.logout'))
 
     # If refresh is hit
     if refreshForm.submit4.data and refreshForm.validate():
@@ -178,12 +194,8 @@ def game(group):
             game.completedEncounter()
             
             db.session.commit()
-
-            '''
-                Some sort of redirect to a game specific victory screen that has a quit button on it.  When a user quits manually destroy their user model
-            '''
     
-    if game.mode == "VICTORY":
+    if game.mode == "VICTORY" or game.mode == "MARKDEL":
         return redirect(url_for('main.logout'))
 
     if game.randMUpper == '0':
@@ -191,7 +203,7 @@ def game(group):
     else:
         map = game.curMap + '.PNG'
 
-    return render_template(['game.html', 'base.html'], prompt=prompt, user=user, game=game, map=map, encounter=encounter, nextForm=nextForm, refreshForm=refreshForm)
+    return render_template(['game.html', 'base.html'], prompt=prompt, user=user, game=game, map=map, encounter=encounter, nextForm=nextForm, refreshForm=refreshForm, delForm=delForm)
 
 @main.route('/login', methods=['GET', 'POST'])
 def login():
@@ -235,29 +247,25 @@ def login():
         return redirect(next_page)
 
     if createForm.submit2.data and createForm.validate():
+        
         user = User(group=createForm.group.data, permission='2')
         db.session.add(user)
         db.session.commit()
 
-        # Count amount of encounters and count amount of images in the map folder
         encounters = Encounter.query.all()
 
         game = Game(group=createForm.group.data, compEnc='1', mode='GAME', curEnc='0')
         
         game.generateFrequency()
         game.applyCallsign(CALLSIGN_LIST[randint(0,len(CALLSIGN_LIST)-1)] + ' ' + str(randint(1,9)))
-
+        game.location = LOCATION_LIST[randint(0, len(LOCATION_LIST)-1)]
+        
         game.setGoalEnc(20)
         game.setQRandUpper(len(encounters) - 1)
         game.setMRandUpper(19)
         
-        print(len(encounters))
-
         game.selectMarch()
-
-        game.location = LOCATION_LIST[randint(0, len(LOCATION_LIST) - 1)]
         game.updateTime()
-
         db.session.add(game)
         db.session.commit()
 
@@ -276,6 +284,9 @@ def login():
 
 @main.route('/logout')
 def logout():
+
+    # Just really bad code
+
     #if current_user.permission == '2':
         #game = Game.query.filter_by(group=current_user.group).first()
         #db.session.delete(game)
