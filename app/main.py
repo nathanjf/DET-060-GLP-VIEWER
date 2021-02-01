@@ -20,9 +20,8 @@ from os import listdir
 
 main = Blueprint('main', __name__)
 
-#app = create_app()
-
 MAP_PATH = os.sep + 'static' + os.sep + 'images' + os.sep + 'maps'
+
 CALLSIGN_LIST = [
     'SALAMANDER',
     'FROG',
@@ -212,7 +211,7 @@ def login():
         game = Game(group=createForm.group.data, compEnc='1', mode='GAME', curEnc='0')
         
         game.generateFrequency()
-        game.applyCallsign(CALLSIGN_LIST[randint(0,len(CALLSIGN_LIST)-1)] + ' ' + str(randint(0,20)))
+        game.applyCallsign(CALLSIGN_LIST[randint(0,len(CALLSIGN_LIST)-1)] + ' ' + str(randint(1,9)))
 
         game.setGoalEnc(20)
         game.setQRandUpper(len(encounters) - 1)
