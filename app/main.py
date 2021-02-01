@@ -173,7 +173,7 @@ def game(group):
     if game.randMUpper == '0':
         map = 'DEFAULTTOERRORIMAGE'
     else:
-        map = str(randint(0, int(game.randMUpper))) + '.png'
+        map = game.curMap + '.png'
 
     return render_template(['game.html', 'base.html'], prompt=prompt, user=user, game=game, map=map, encounter=encounter, nextForm=nextForm, refreshForm=refreshForm)
 
