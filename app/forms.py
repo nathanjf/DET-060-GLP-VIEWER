@@ -5,6 +5,9 @@ from wtforms.validators import DataRequired, ValidationError, DataRequired, Emai
 from app.models import User, Game
 
 
+class DeleteForm(FlaskForm):
+    submit11 = SubmitField('Delete')
+
 class JoinForm(FlaskForm):
     group = StringField('Group Code', validators=[DataRequired()])
     submit1 = SubmitField('Join')
