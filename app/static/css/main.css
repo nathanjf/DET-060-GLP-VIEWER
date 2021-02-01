@@ -90,20 +90,6 @@ span {
     display: inline-block;
 }
 
-form {
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    flex-direction: row;
-    align-content: center;
-}
-
-input {
-    margin:0;
-    display:flex;
-    font-size: 1em;
-}
-
 .contentDiv {
     padding:0;
     margin:0;
@@ -205,4 +191,28 @@ input {
     min-width: 100%;
     max-width:100%;
     max-height:90%;
+}
+
+form {
+    padding:0;
+    margin:0;
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+}
+
+.formBody p {
+    font: 1em;
+    font-family: Arial, Helvetica, sans-serif;
+    display: flexbox;
+    width: 50%;
+    margin: 10;
+    padding: 0;
+    text-align: center;
+}
+
+input {
+    padding: 5;
+    margin: 0;
+    width: 100%;
 }
