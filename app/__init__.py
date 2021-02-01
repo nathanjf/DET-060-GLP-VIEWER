@@ -33,7 +33,7 @@ def create_app():
 
     login_manager.login_view = 'main.login'
 
-    from .main import job1
+    from .main import job1, job2
     sched.start()
 
     from .main import main as main_blueprint

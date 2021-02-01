@@ -14,6 +14,14 @@ class JoinForm(FlaskForm):
         if game is None:
             raise(ValidationError('Game does not exist'))
 
+class JoinFormPOC(FlaskForm):
+    group = StringField('Group Code', validators=[DataRequired()])
+    submit10 = SubmitField('Join')
+
+    def validate_group(self, group):
+        game = Game.query.filter_by(group=group.data).first()
+        if game is None:
+            raise(ValidationError('Game does not exist'))
 
 class CreateForm(FlaskForm):
     group = StringField('Group Code', validators=[DataRequired()])

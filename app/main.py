@@ -11,7 +11,7 @@ import app
 from app import create_app
 from app import db
 from app.models import User, Game, Encounter, Prompt
-from app.forms import JoinForm, CreateForm, NextForm, RefreshForm, Advance16
+from app.forms import JoinForm, CreateForm, NextForm, RefreshForm, Advance16, JoinFormPOC
 from app import sched
 
 from flask_apscheduler import APScheduler
@@ -92,6 +92,22 @@ def job1():
                     print('Deleting Game: ' + game.group)
                     db.session.delete(game)
                     db.session.commit()
+
+@sched.task('interval', id='do_job_2', seconds=60, misfire_grace_time=900)
+def job2():
+    print('job2 trigger')
+    with db.app.app_context():
+        games = Game.query.all()
+        for game in games:
+            if game.mode == 'VICTORY':
+                users = User.query.filter_by(group=game.group)
+                for user in users:
+                    print('Deleting User: ' + user.group)
+                    db.session.delete(user)
+                    db.session.commit()
+                print('Deleting Game: ' + game.group)
+                db.session.delete(game)
+                db.session.commit()
 
 @main.route('/')
 @main.route('/index')
@@ -185,10 +201,26 @@ def login():
         return redirect(url_for('main.game', group=current_user.group))
     
     joinForm = JoinForm()
+    joinFormPOC = JoinFormPOC()
     createForm = CreateForm()
 
     if joinForm.submit1.data and joinForm.validate():
         user = User(group=joinForm.group.data, permission='1')
+        flash('Joined game ' + user.group)
+        db.session.add(user)
+        db.session.commit()
+
+        login_user(user)
+
+        next_page = request.args.get('next')
+
+        if not next_page or url_parse(next_page).netloc != '':
+            next_page = url_for('main.game', group=current_user.group)
+
+        return redirect(next_page)
+
+    if joinFormPOC.submit10.data and joinFormPOC.validate():
+        user = User(group=joinForm.group.data, permission='2')
         flash('Joined game ' + user.group)
         db.session.add(user)
         db.session.commit()
@@ -240,7 +272,7 @@ def login():
 
     prompt = Prompt.query.all()[0]
 
-    return render_template(['joinCreate.html', 'base.html'],prompt=prompt, joinForm=joinForm, createForm=createForm)
+    return render_template(['joinCreate.html', 'base.html'],prompt=prompt, joinForm=joinForm, createForm=createForm, joinFormPOC=joinFormPOC)
 
 @main.route('/logout')
 def logout():
