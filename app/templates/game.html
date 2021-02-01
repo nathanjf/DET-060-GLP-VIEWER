@@ -172,13 +172,13 @@
                 }
                 },
                 error: function() { // error logging
-                console.log('Error!');
+                    window.location.href = "/logout"
                 }
             });
             },
             pollInterval = setInterval(function() { // run function every 2000 ms
             poll();
-            }, 1000);
+            }, 5000);
             poll(); // also run function on init
         })();
     </script>
