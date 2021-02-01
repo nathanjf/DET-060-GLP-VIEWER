@@ -41,12 +41,13 @@
 
         <div class=flexBodyProxy>
             <div class='headerDiv'>
-                <h2>Join A Game</h2>
+                <h2>Join As Player</h2>
             </div>
 
             <div class='bodyDiv'>
-                <form action="" method="post" novalidate>
+                <form action="" method="post" novalidate class="formBody">
                     {{ joinForm.hidden_tag() }}
+                    <p>Join As Player</p>
                     <p>
                         {{ joinForm.group(size=32, autocomplete="off") }}<br>
                         {% for error in joinForm.group.errors %}
@@ -64,12 +65,13 @@
 
         <div class=flexBodyProxy>
             <div class='headerDiv'>
-                <h2>Create A Game</h2>
+                <h2>Create Or Join As Host</h2>
             </div>
 
             <div class='bodyDiv'>
-                <form action="" method="post" novalidate>
+                <form action="" method="post" novalidate class="formBody">
                     {{ createForm.hidden_tag() }}
+                    <p>Create A Group</p>
                     <p>
                         {{ createForm.group(size=32, autocomplete="off") }}<br>
                         {% for error in createForm.group.errors %}
@@ -83,6 +85,24 @@
                     </p>
                 </form>
             </div>
+            <div class='bodyDiv'>
+                <form action="" method="post" novalidate class="formBody">
+                    {{ joinFormPOC.hidden_tag() }}
+                    <p>Join As Host</p>
+                    <p>
+                        {{ joinFormPOC.group(size=32, autocomplete="off") }}<br>
+                        {% for error in joinFormPOC.group.errors %}
+                        <span style='color: red;'>
+                            *{{ error }}
+                        </span>
+                        {% endfor %}
+                    </p>
+                    <p>
+                        {{ joinFormPOC.submit10() }}
+                    </p>
+                </form>
+            </div>
+ 
         </div>
     
     </div>

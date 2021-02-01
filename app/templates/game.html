@@ -86,12 +86,15 @@
 
         {% if user.permission == '2' %}
             <div class='flexBodyProxy'>
+                
                 <div class='headerDiv poc'>
                     <h2>Next Encounter</h2>
                 </div>
                     
                 <div class='bodyDiv'>
-                    <form action="" method="post" novalidate>
+                    
+                    <form action="" method="post" novalidate class="formBody">
+                        <p>Move To The Next Encounter</p>
                         {{ nextForm.hidden_tag() }}
                         <p>
                             {{ nextForm.submit3() }}
