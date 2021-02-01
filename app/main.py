@@ -10,7 +10,7 @@ from datetime import datetime
 import app
 from app import create_app
 from app import db
-from app.models import User, Game, Encounter
+from app.models import User, Game, Encounter, Prompt
 from app.forms import JoinForm, CreateForm, NextForm, RefreshForm, Advance16
 from app import sched
 
@@ -38,7 +38,6 @@ CALLSIGN_LIST = [
     'CRAB',
     'CATERPILLAR',
     'CAMEL',
-    'DEER',
     'KIWI',
     'GOAT',
     'PLATYPUS',
@@ -56,13 +55,14 @@ CALLSIGN_LIST = [
 ]
 
 LOCATION_LIST = [
-    'USC VILLAGE TARGET',
-    'USC VILLAGE TRADER JOE\'S',
-    'UCLA',
-    'USC COLISEUM',
-    'USC PED FRONT STEPS',
-    'COL WYNAN\'S OFFICE',
-    'C/JORDAN\'S BARBEQUE'
+    'C/JORDAN\'S BARBEQUE',
+    'SHAPIRO FOUNTAIN',
+    'WILSON PLAZA',
+    'DRAKE STADIUM',
+    'DICKSON COURT',
+    'DODD HALL',
+    'BUNCHE HALL',
+    'ROSENFELD LIBRARY'
 ]
 
 @sched.task('interval', id='do_job_1', seconds=120, misfire_grace_time=900)
@@ -70,6 +70,7 @@ def job1():
     with db.app.app_context(): 
         
         curTime = datetime.now()
+
         users = User.query.all()
         if len(users) > 0:
             for user in users:
@@ -118,6 +119,7 @@ def userStatus():
 def game(group):
     user = current_user
     game = Game.query.filter_by(group=user.group).first()
+    prompt = Prompt.query.all()[0]
     encounter = Encounter.query.filter_by(number=game.curEnc).first()
 
     user.updateTime()
@@ -171,9 +173,9 @@ def game(group):
     if game.randMUpper == '0':
         map = 'DEFAULTTOERRORIMAGE'
     else:
-        map = str(randint(0, int(game.randMUpper)))
+        map = str(randint(0, int(game.randMUpper))) + '.png'
 
-    return render_template(['game.html', 'base.html'], user=user, game=game, map=map, encounter=encounter, nextForm=nextForm, refreshForm=refreshForm)
+    return render_template(['game.html', 'base.html'], prompt=prompt, user=user, game=game, map=map, encounter=encounter, nextForm=nextForm, refreshForm=refreshForm)
 
 @main.route('/login', methods=['GET', 'POST'])
 def login():
@@ -215,7 +217,7 @@ def login():
 
         game.setGoalEnc(20)
         game.setQRandUpper(len(encounters) - 1)
-        game.setMRandUpper(0)
+        game.setMRandUpper(19)
         
         print(len(encounters))
 
@@ -236,7 +238,9 @@ def login():
 
         return redirect(next_page)
 
-    return render_template(['joinCreate.html', 'base.html'], joinForm=joinForm, createForm=createForm)
+    prompt = Prompt.query.all()[0]
+
+    return render_template(['joinCreate.html', 'base.html'],prompt=prompt, joinForm=joinForm, createForm=createForm)
 
 @main.route('/logout')
 def logout():

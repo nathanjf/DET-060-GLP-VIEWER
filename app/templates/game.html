@@ -14,7 +14,7 @@
             <div class='bodyDiv'>
                 <ol>
                     <li>Solve the current encounter</li>
-                    <li>If neccessary use the Team Information to make any radio calls</li>
+                    <li>If neccessary, use the Team Information to make any radio calls</li>
                     <li>Transit to the next location by calling all the proper commands</li>
                 </ol>
             </div>
@@ -54,24 +54,9 @@
                 <div class='headerDiv poc'>
                     <h2>Solution:</h2>
                 </div>
-                    
+
                 <div class='bodyDiv'>
                     <span style="white-space: pre-line">{{ encounter.solution }}</span>
-                </div>
-            </div>
-
-            <div class='flexBodyProxy'>
-                <div class='headerDiv poc'>
-                    <h2>Next Encounter</h2>
-                </div>
-                    
-                <div class='bodyDiv'>
-                    <form action="" method="post" novalidate>
-                        {{ nextForm.hidden_tag() }}
-                        <p>
-                            {{ nextForm.submit3() }}
-                        </p>
-                    </form>
                 </div>
             </div>
 
@@ -95,6 +80,24 @@
                 {% endif %}
             </div>
         </div>
+
+        {% if user.permission == '2' %}
+            <div class='flexBodyProxy'>
+                <div class='headerDiv poc'>
+                    <h2>Next Encounter</h2>
+                </div>
+                    
+                <div class='bodyDiv'>
+                    <form action="" method="post" novalidate>
+                        {{ nextForm.hidden_tag() }}
+                        <p>
+                            {{ nextForm.submit3() }}
+                        </p>
+                    </form>
+                </div>
+            </div>
+        {% endif %}
+
     </div>
 
     <!--
@@ -111,7 +114,6 @@
         </form>
     </div>
     -->
-
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script>
@@ -165,6 +167,5 @@
             poll(); // also run function on init
         })();
     </script>
-
 
 {% endblock %}

@@ -1,7 +1,7 @@
 {
     "0": {
       "problem": "Your team visually spots an unexploded IED. The IED is green and is partially burried in the ground. It appear to be intact. One member of the team noticed that the UXO is on a timer and will explode in the next 90 seconds unless a proper UXO 9-Line is called in.",
-      "solution": "UXO 9-Line (90 seconds to complete)\nLine 1.Approx. time, 0829 05 Jan 21\nLine 2.UCLA campus\nLine 3.Radio frequency, Callsign, Cadet (Radio operator last name)\nLine 4.Approximate description of the IED\nLine 5.No contamination\nLine 6.Personnel\nLine 7.Team cannot proceed with recapturing UCLA\nLine 8.Any precautionary measures (Personnel evacuated, IED marked, perimeter established, etc.)\nLine 9.Immediate\n\nIf not completed in 90 seconds the IED explodes.\nPOC script: ((Time has expired)(The 9-line was called in incorrectly) and the IED has exploded. One of your members has lost their left forearm in the explosion and is bleeding uncontrollably. Your team is not under enemy fire. Complete TCCC and 9-line MEDEVAC.)\n\nTCCC:\n1.Apply limb tourniquet proximal to the wound -> Bleeding is stopped\n2. 9-Line MEDEVAC\n\n9-Line MEDEVAC\nLine 1. UCLA\nLine 2. Radio Frequency + Call Sign\nLine 3. 1A\nLine 4. C\nLine 5. 1A\nLine 6. N or P\nLine 7. Mark with any\nLine 8. A\nLine 9. NA"
+      "solution": "UXO 9-Line (90 seconds to complete)\nLine 1.Approx. time, 0829 05 Jan 21\nLine 2.Location\nLine 3.Radio frequency, Callsign, Cadet (Radio operator last name)\nLine 4.Approximate description of the IED\nLine 5.No contamination\nLine 6.Personnel\nLine 7.Team cannot proceed with recapturing UCLA\nLine 8.Any precautionary measures (Personnel evacuated, IED marked, perimeter established, etc.)\nLine 9.Immediate\n\nIf not completed in 90 seconds the IED explodes.\nPOC script: ((Time has expired)(The 9-line was called in incorrectly) and the IED has exploded. One of your members has lost their left forearm in the explosion and is bleeding uncontrollably. Your team is not under enemy fire. Complete TCCC and 9-line MEDEVAC.)\n\nTCCC:\n1.Apply limb tourniquet proximal to the wound -> Bleeding is stopped\n2. 9-Line MEDEVAC\n\n9-Line MEDEVAC\nLine 1. UCLA\nLine 2. Radio Frequency + Call Sign\nLine 3. 1A\nLine 4. C\nLine 5. 1A\nLine 6. N or P\nLine 7. Mark with any\nLine 8. A\nLine 9. NA"
     },
     "1": {
       "problem": "As your team progresses further into enemy territory a lone unarmed enemy some running at your team waving their hands. A member of your team is startled and fires at the enemy. Your team approaches the downed soldier observes that they have a sucking chest wound. Apply TCCC and hand off the enemy to backup forces for intel extraction, 9-line not required.",
@@ -13,34 +13,34 @@
     },
     "3": {
       "problem": "Your team decides to take a much needed break and enters one of the nearby buildings. Upon opening the door to the building an explosion goes off and a piece of shrapnel is sent through one of your teammates legs, they are bleeding severely. Perform TCCC and MEDEVAC your teammate.",
-      "solution": "TCCC\n1.Apply limb tourniquets -> Bleeding does not stop\n2.Apply second limb tourniquet\n3.Ready for MEDEVAC\n\n9-Line MEDEVAC\nLine 1.UCLA\nLine 2.Radio + Callsign\nLine 3.1A\nLine 4.C\nLine 5.1A\nLine 6.N or P\nLine 7.Any marking\nLine 8.A\n9.NA"
+      "solution": "TCCC\n1.Apply limb tourniquets -> Bleeding does not stop\n2.Apply second limb tourniquet\n3.Ready for MEDEVAC\n\n9-Line MEDEVAC\nLine 1.Location\nLine 2.Radio + Callsign\nLine 3.1A\nLine 4.C\nLine 5.1A\nLine 6.N or P\nLine 7.Any marking\nLine 8.A\n9.NA"
     },
     "4": {
       "problem": "While crossing an open field one of your team members falls into a spike trap. A spike pierces an artery in their leg. You immediately begin taking fire.",
-      "solution": "Team should immediately return fire -> Enemy retreats\nTeam should move to cover with injured team member\n\nTCCC\n1.Do NOT remove spike from leg, apply hemostatic dressing\n2.Prepared for MEDEVAC\n\n9-Line MEDEVAC\nLine 1.UCLA\nLine 2.Radio + Callsign\nLine 3.1A\nLine 4.C\nLine 5.1A\nLine 6.N or P\nLine 7.D\nLine 8.A\n9.NA"
+      "solution": "Team should immediately return fire -> Enemy retreats\nTeam should move to cover with injured team member\n\nTCCC\n1.Do NOT remove spike from leg, apply hemostatic dressing\n2.Prepared for MEDEVAC\n\n9-Line MEDEVAC\nLine 1.Location\nLine 2.Radio + Callsign\nLine 3.1A\nLine 4.C\nLine 5.1A\nLine 6.N or P\nLine 7.D\nLine 8.A\n9.NA"
     },
     "5": {
       "problem": "While clearing an abandoned building on campus, your team visually observe plastic explosives placed on every supporting beam in the building. The explosives are white in color and are 2.5 x 5.0 inch blocks. Call in a UXO 9-Line",
-      "solution": "UXO 9-Line\nLine 1.Approx. time, 0829 05 Jan 21\nLine 2.UCLA\nLine 3.Radio frequency, Callsign, Cadet (Radio operator last name)\nLine 4.Approximate description of the UXO\nLine 5.No contamination\nLine 6.Personnel\nLine 7.Team cannot progress with recapturing UCLA\nLine 8.Any precautionary measures\nLine 9.Immediate"
+      "solution": "UXO 9-Line\nLine 1.Approx. time, 0829 05 Jan 21\nLine 2.Location\nLine 3.Radio frequency, Callsign, Cadet (Radio operator last name)\nLine 4.Approximate description of the UXO\nLine 5.No contamination\nLine 6.Personnel\nLine 7.Team cannot progress with recapturing UCLA\nLine 8.Any precautionary measures\nLine 9.Immediate"
     },
     "6": {
       "problem": "While patrolling the campus an injured professor comes out of one of the buildings begging for help, it appears she has been shot. She has a broken arm and is severely bleeding from her forearm. Apply TCCC and MEDEVAC the professor.",
-      "solution": "TCCC\n1.Apply limb tourniquet -> Bleeding stops\n2.Apply splint\n3.Prepared for MEDEVAC\n\n9-Line MEDEVAC\nLine 1.UCLA\nLine 2.Radio frequency, callsign\nLine 3.1A\nLine 4.A or C\nLine 5.1A\nLine 6.P or E\nLine 7.Any marking\nLine 8.B or C\nLine 9.NA"
+      "solution": "TCCC\n1.Apply limb tourniquet -> Bleeding stops\n2.Apply splint\n3.Prepared for MEDEVAC\n\n9-Line MEDEVAC\nLine 1.Location\nLine 2.Radio frequency, callsign\nLine 3.1A\nLine 4.A or C\nLine 5.1A\nLine 6.P or E\nLine 7.Any marking\nLine 8.B or C\nLine 9.NA"
     },
     "7": {
       "problem": "Due to a communication error, your team and an allied nation's team unknowingly begin clearing the same building. Startled, both teams fire on each other and one member in each team sustains a bullet wound to their forearm. Both members have broken arms and are severely bleeding, apply TCCC and MEDEVAC.",
-      "solution": "TCCC Patient 1\n1.Apply limb tourniquet -> Bleeding stops\n2.Apply splint\nPrepared for MEDEVAC\n\nTCCC Patient 2\n1.Apply limb tourniquet -> Bleeding continues\n2.Apply secondary tourniquet -> Bleeding stops\n3.Apply splint\n4.Prepared for MEDEVAC\n\n9-Line MEDEVAC\nLine 1.UCLA\nLine 2.Frequncy, callsign\nLine 3.2A\nLine 4.A or C\nLine 5.2A\nLine 6.N\nLine 7.Any marking\nLine 8.1A 1C\nLine 9.NA"
+      "solution": "TCCC Patient 1\n1.Apply limb tourniquet -> Bleeding stops\n2.Apply splint\nPrepared for MEDEVAC\n\nTCCC Patient 2\n1.Apply limb tourniquet -> Bleeding continues\n2.Apply secondary tourniquet -> Bleeding stops\n3.Apply splint\n4.Prepared for MEDEVAC\n\n9-Line MEDEVAC\nLine 1.Location\nLine 2.Frequncy, callsign\nLine 3.2A\nLine 4.A or C\nLine 5.2A\nLine 6.N\nLine 7.Any marking\nLine 8.1A 1C\nLine 9.NA"
     },
     "8": {
       "problem": "While clearing a basement, your team stumbles upon a friendly special forces team surrounding a large 4' x 4' x 4' silver metalic box. They explain that thy were tasked with locating, securing, and reporting the nuclear warhead stored in the box. They further explain that they are unable to report the weapon because their radio operator was shot and is currently unconscious. His team has already performed TCCC on the radio operator but they request that you call in the UXO and MEDEVAC 9-lines on their behalf.",
-      "solution": "UXO 9-Line\nLine 1.Approx. time, 0829 05 Jan 21\nLine 2.UCLA campus\nLine 3.Radio frequency, Callsign, Cadet (Radio operator last name)\nLine 4.Approximate description of the weapon and the crate\nLine 5.Nuclear\nLine 6.Any answer\nLine 7.Team cannot proceed with recapturing UCLA\nLine 8.Any precautionary measures (Personnel evacuated, IED marked, perimeter established, etc.)\nLine 9.Immediate"
+      "solution": "UXO 9-Line\nLine 1.Approx. time, 0829 05 Jan 21\nLine 2.Location\nLine 3.Radio frequency, Callsign, Cadet (Radio operator last name)\nLine 4.Approximate description of the weapon and the crate\nLine 5.Nuclear\nLine 6.Any answer\nLine 7.Team cannot proceed with recapturing UCLA\nLine 8.Any precautionary measures (Personnel evacuated, IED marked, perimeter established, etc.)\nLine 9.Immediate"
     },
     "9": {
       "problem": "While walking, snipers wound 3 members. Perform TCCC to fully recover members and call in 9-Line MEDEVAC for them. 2 members have sucking chest wounds and 1 member has a severed artery in their leg.  The snipers leave immediately, your team is no longer under fire.",
       "solution": "TCCC:\nPatient 1 Bleeding:\n1.Limb tourniquet\n2.Still bleeding\n3.Second tourniquet\n4.Hemorrhage not controlled\n5.Apply hemostatic dressing\n6.Maintain pressure\n\nPatient 2 and 3, Sucking Chest Wound:\n1.Apply vented chest seal\n2.Monitor for Tension Pneumothorax\n3They are ready for MEDEVAC\n\n9-Line MEDEVAC:\n1.Location\n2.Radio + Callsign\n3.3A\n4.C\n5.3A\n6.E\n7.D\n8.A\n9.N\/A"
     },
     "10": {
-      "problem": "A defected enemy approaches and says he has information that will benefit the team.  He says he will give up the information if the team is able to recite the entire Airman�s Creed correctly.",
+      "problem": "A defected enemy approaches and says he has information that will benefit the team.  He says he will give up the information if the team is able to recite the entire Airman's Creed correctly.",
       "solution": "The information is that there is an IED up ahead.  If they successfully retrieve the information, they need to call in UXO 9-Line. If they fail, one of their team members steps on the IED and loses their leg via traumatic amputation.  They must then do TCCC and call a 9-Line MEDEVAC.\n\nUXO 9-Line:\n1.Date + Time\n2.Location\n3.Radio + Call Sign\n4.C\n5.No\n6.Personnel\n7.UXO blocking path\n8.Marked with anything\n9.A\n\nTCCC:\nPatient 1 if they fail:\n1.Limb tourniquet\n2.Still bleeding\n3.Second limb tourniquet\n\n9-Line MEDEVAC:\n1.Location\n2.Radio + Call Sign\n3.1A\n4.C\n5.1A\n6.P\n7.Mark with any\n8.A\n9.N\/A"
     },
     "11": {
@@ -65,11 +65,11 @@
     },
     "16": {
       "problem": "While transiting past a typical old and run down UCLA building, a large earthquake strikes the region. Large roof shingles begin falling onto your team and one strikes a team member and knocks them unconscious. Upon further examination the team member is bleeding severely from their head. Apply TCCC and MEDEVAC.",
-      "solution": "TCCC\n1.Apply hemostatic dressing to treat bleeding\n2.Prepared for MEDEVAC\n\n9-Line MEDEVAC\nLine 1.UCLA\nLine 2.Frequency, callsign\nLine 3.1A\nLine 4.C\nLine 5.1A\nLine 6.N\nLine 7.Any marking\nLine 8.A\nLine 9.NA"
+      "solution": "TCCC\n1.Apply hemostatic dressing to treat bleeding\n2.Prepared for MEDEVAC\n\n9-Line MEDEVAC\nLine 1.Location\nLine 2.Frequency, callsign\nLine 3.1A\nLine 4.C\nLine 5.1A\nLine 6.N\nLine 7.Any marking\nLine 8.A\nLine 9.NA"
     },
     "17": {
       "problem": "A friendly A-10 pilot who was tasked with providing your team close air support has been downed by the enemy. Your team has been tasked with recovering the pilot. Upon discovering the pilot you learn they have broken both their legs and are bleeding severely from their head. As you begin treating the pilot your team is ambushed by an enemy squad tasked with capturing the downed pilot. Apply TCCC and MEDEVAC the pilot.",
-      "solution": "Immediate objective is to return fire and ward off the enemy -> The Enemy retreats\n\nTCCC\n1.Apply hemostatic dressing to the head wound -> Bleeding stops\n2.Apply splits to both legs\n\n9-Line MEDEVAC\nLine 1.UCLA\nLine 2.Frequency, callsign\nLine 3.1A\nLine 4.\nB or C\nLine 5.1A\nLine 6.E or X\nLine 7.D\nLine 8.A\nLine 9. NA"
+      "solution": "Immediate objective is to return fire and ward off the enemy -> The Enemy retreats\n\nTCCC\n1.Apply hemostatic dressing to the head wound -> Bleeding stops\n2.Apply splits to both legs\n\n9-Line MEDEVAC\nLine 1.Location\nLine 2.Frequency, callsign\nLine 3.1A\nLine 4.\nB or C\nLine 5.1A\nLine 6.E or X\nLine 7.D\nLine 8.A\nLine 9. NA"
     },
     "18": {
         "problem": "While transiting, the ground gives away and 2 team members fall into a 30ft hole. 1 person has a broken leg while the other has a concussion. Administer care using TCCC and radio in 9-Line MEDEVAC within 5 minutes.",
@@ -78,9 +78,5 @@
     "19": {
         "problem": "One of your team members is not paying attention while they are walking.  They step on a bear trap and in the process of falling over their other foot and arm get caught in 2 other bear traps.  They now have 3 of their 4 limbs in bear traps.  While going to treat the fallen team member, another team member steps in a bear trap.",
         "solution": "TCCC\n1.Apply Limb Tourniquet(s)\n2.Ready for MEDEVAC\n\n9-Line MEDEVAC\n1.Location\n2.Radio + Call Sign\n3.2A\n4.A\n5.2A \n6.P\n7.Mark w any\n8.A\n9.N\/A"
-    },
-    "20": {
-        "problem": "Your team happens upon a lone rabbit, as you all are distracted and teaching it to say \"what's up doc\" an enemy sniper yells �i'm hunting wabbits� and shoots your team leader through their left arm in an attempt to hunt said \"wabbit\".  Their left arm is gushing blood, perform TCCC and call in a MEDEVAC for your downed team member before the sniper goes for another shot.",
-        "solution": "TCCC\n1.Limb tourniquet to stop bleeding\n2.Ready for MEDEVAC\n\n9-Line MEDEVAC\n1.Location\n2.Radio + Call Sign\n3.1A\n4.A\n5.1A\n6.X\n7.Mark w any\n8.A\n9.N\/A"
     }
 }

@@ -99,3 +99,15 @@ class Encounter(db.Model):
 
     def __repr__(self):
         return '<Encounter {}>'.format(self.group + ' ' + self.problem + ' ' + self.solution)
+
+class Prompt(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+
+    longText = db.Column(db.String(1000), index=True)
+
+    def setText(self, text):
+        self.longText = text
+
+    def __repr__(self):
+        return '<Prompt {}>'.format(self.longText)
+

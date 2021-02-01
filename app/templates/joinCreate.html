@@ -7,9 +7,19 @@
                 <h2>OGLPV (Online GLP Viewer)</h2>
             </div>
             <div class='bodyDiv'>
-                <img src={{url_for('static', filename='/images/assets/mainBackup.png')}}>
+                <img class='defaultImg' src={{url_for('static', filename='/images/assets/mainBackup.png')}}></img>
             </div>
         </div>
+
+        <div class='flexBodyProxy'>
+            <div class='headerDiv'>
+                <h2>GLP Prompt</h2>
+            </div>
+            <div class='bodyDiv'>
+                <p>{{ prompt.longText }}</p>
+            </div>
+        </div>
+
     </div>
 
     <div class='sideBar'>
@@ -24,7 +34,6 @@
                     <li>Join or create a group by entering a group code</li>
                     <li>Answer the problem presented using ROTC relevant knowledge and procedures</li>
                     <li>Call all the commands that would be required to march to the location on the map</li>
-                    <li>Repeat 20 times</li>
                 </ol>
             </div>
         </div>
