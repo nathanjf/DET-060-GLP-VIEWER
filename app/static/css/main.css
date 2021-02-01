@@ -137,9 +137,36 @@ input {
 .sepDiv {
     background-color: #4A4A4A;
     width:100%;
-    height:10px;
+    min-height: 10;
     z-index: auto;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.sepDiv h2 {
+    color: white;
+    padding-left: 40;
+    margin:0;
+    font-size: 1em;
+    padding-left: 30;
+    text-align: left;
+}
+
+.sigDiv a:link{
+    color: white
+}
+
+.sigDiv a:visited {
+    color: white;
+}
+
+.sepDiv a:link {
+    color: white;
+    text-decoration: none;
+}
+
+.sepDiv a:visited {
+    color: white;
+    text-decoration: none;
 }
 
 .flexBodyProxy {
