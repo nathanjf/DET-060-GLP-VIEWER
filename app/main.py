@@ -66,7 +66,7 @@ LOCATION_LIST = [
 ]
 
 # Purge all users and games that are older than xTime
-@sched.task('interval', id='do_job_1', seconds=90, misfire_grace_time=30)
+@sched.task('interval', id='do_job_1', seconds=120, misfire_grace_time=30)
 def job1():
     print('job1 Triggered')
     with db.app.app_context(): 
@@ -97,7 +97,7 @@ def job1():
                     db.session.commit()
 
 # Purge all games and users that are currently in a victory state
-@sched.task('interval', id='do_job_2', seconds=60, misfire_grace_time=30)
+@sched.task('interval', id='do_job_2', seconds=30, misfire_grace_time=30)
 def job2():
     print('job2 Triggered')
     with db.app.app_context():
@@ -126,6 +126,7 @@ def gameStatus(group):
     age = age.total_seconds()
     age = round(age/60, 1)
     game = Game.query.filter_by(group=user.group).first()
+ 
     return jsonify({'compEnc' : game.compEnc, 'age': str(age)})
 
 @main.route('/browser', methods=['GET', 'POST'])
