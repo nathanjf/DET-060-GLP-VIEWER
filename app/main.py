@@ -101,6 +101,7 @@ def job1():
 def job2():
     print('job2 Triggered')
     with db.app.app_context():
+        
         games = Game.query.all()
         for game in games:
             if game.mode == 'VICTORY' or game.mode == 'MARKDEL':
@@ -127,7 +128,7 @@ def gameStatus(group):
     age = round(age/60, 1)
 
     game = Game.query.filter_by(group=user.group).first()
- 
+
     return jsonify({'compEnc' : game.compEnc, 'age': str(age)})
 
 @main.route('/browser', methods=['GET', 'POST'])
@@ -147,7 +148,6 @@ def game(group):
 
     user.updateTime()
     game.updateTime()
-
     user.compEnc = game.compEnc
     db.session.commit()
 
@@ -220,7 +220,6 @@ def login():
 
     if joinForm.submit1.data and joinForm.validate():
         user = User(group=joinForm.group.data, permission='1')
-        flash('Joined game ' + user.group)
         db.session.add(user)
         db.session.commit()
 
@@ -235,7 +234,6 @@ def login():
 
     if joinFormPOC.submit10.data and joinFormPOC.validate():
         user = User(group=joinForm.group.data, permission='2')
-        flash('Joined game ' + user.group)
         db.session.add(user)
         db.session.commit()
 
@@ -286,18 +284,5 @@ def login():
 
 @main.route('/logout')
 def logout():
-
-    # Just really bad code
-
-    #if current_user.permission == '2':
-        #game = Game.query.filter_by(group=current_user.group).first()
-        #db.session.delete(game)
-        #db.session.commit()
-
-        #users = User.query.filter_by(group=current_user.group)
-        #for user in users:
-        #    db.session.delete(user)
-        #    db.session.commit()
-
     logout_user()    
     return redirect(url_for('main.index'))
