@@ -101,14 +101,6 @@ def job1():
 def job2():
     print('job2 Triggered')
     with db.app.app_context():
-        users = User.query.all()
-        for user in users:
-            age = (datetime.now() - datetime.strptime(user.timeStamp, "%d/%m/%Y %H:%M:%S"))
-            if round(age.total_seconds(), 1) > 15.0:
-                print('Deleting User: ' + user.group)    
-                db.session.delete(user)
-                db.session.commit()
-
         games = Game.query.all()
         for game in games:
             if game.mode == 'VICTORY' or game.mode == 'MARKDEL':
@@ -133,9 +125,6 @@ def gameStatus(group):
     age = (datetime.now() - datetime.strptime(user.timeStamp, "%d/%m/%Y %H:%M:%S"))
     age = age.total_seconds()
     age = round(age/60, 1)
-
-    user.updateTime()
-    db.session.commit()
 
     game = Game.query.filter_by(group=user.group).first()
  
