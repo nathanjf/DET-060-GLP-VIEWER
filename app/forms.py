@@ -23,6 +23,10 @@ class JoinFormPOC(FlaskForm):
 
     def validate_group(self, group):
         game = Game.query.filter_by(group=group.data).first()
+        users = User.query.filter_by(group=group.data, permission='2').first()
+        if users is not None:
+            raise(ValidationError('Game already has a host'))
+
         if game is None:
             raise(ValidationError('Game does not exist'))
 
