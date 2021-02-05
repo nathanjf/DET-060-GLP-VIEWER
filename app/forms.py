@@ -39,14 +39,11 @@ class CreateForm(FlaskForm):
         if game is not None:
             raise ValidationError('Game already exists')
 
-
 class NextForm(FlaskForm):
     submit3 = SubmitField('Next')
 
-
 class RefreshForm(FlaskForm):
     submit4 = SubmitField('Refresh')
-
 
 class Advance16(FlaskForm):
     submit5 = SubmitField('Advance')
