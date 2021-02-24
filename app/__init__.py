@@ -1,7 +1,3 @@
-'''
-    Creates the app 
-'''
-
 # Import dependencies
 from flask import Flask
 from flask_login import LoginManager
@@ -17,9 +13,6 @@ db = SQLAlchemy()
 migrate = Migrate()
 login_manager = LoginManager()
 sched = APScheduler()
-'''
-    Creates the app
-'''
 
 def create_app():
     app = Flask(__name__)
@@ -33,7 +26,6 @@ def create_app():
 
     login_manager.login_view = 'main.login'
 
-    from .main import job1, job2
     sched.start()
 
     from .main import main as main_blueprint

@@ -1,6 +1,5 @@
 import os
 import sys
-import string
 
 from app import create_app, db
 
@@ -11,7 +10,6 @@ from app.models import Encounter
 from app.models import Prompt
 
 from json import load
-from pprint import pprint
 
 def loadEncounters():
     encDict = {}

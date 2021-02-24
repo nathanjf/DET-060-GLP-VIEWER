@@ -1,9 +1,8 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField, SelectField
-from wtforms.validators import DataRequired, ValidationError, DataRequired, Email, EqualTo, Length
+from wtforms import StringField, SubmitField
+from wtforms.validators import DataRequired, ValidationError, DataRequired
 
-from app.models import User, Game
-
+from app.models import Game
 
 class DeleteForm(FlaskForm):
     submit11 = SubmitField('Delete')
@@ -38,8 +37,4 @@ class CreateForm(FlaskForm):
 class NextForm(FlaskForm):
     submit3 = SubmitField('Next')
 
-class RefreshForm(FlaskForm):
-    submit4 = SubmitField('Refresh')
 
-class Advance16(FlaskForm):
-    submit5 = SubmitField('Advance')

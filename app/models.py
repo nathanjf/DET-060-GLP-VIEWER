@@ -1,8 +1,5 @@
-
 from flask_login import UserMixin
 from datetime import datetime
-from werkzeug.security import generate_password_hash, check_password_hash
-from sqlalchemy.ext.associationproxy import association_proxy
 
 from random import randint
 
@@ -110,4 +107,3 @@ class Prompt(db.Model):
 
     def __repr__(self):
         return '<Prompt {}>'.format(self.longText)
-
