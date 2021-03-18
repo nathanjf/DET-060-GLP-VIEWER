@@ -1,6 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired, ValidationError, DataRequired
+from wtforms_validators import AlphaNumeric
 
 from app.models import Game
 
@@ -8,7 +9,7 @@ class DeleteForm(FlaskForm):
     submit11 = SubmitField('Delete')
 
 class JoinForm(FlaskForm):
-    group = StringField('Group Code', validators=[DataRequired()])
+    group = StringField('Group Code', validators=[DataRequired(), AlphaNumeric()])
     submit1 = SubmitField('Join')
 
     def validate_group(self, group):
@@ -17,7 +18,7 @@ class JoinForm(FlaskForm):
             raise(ValidationError('Game does not exist'))
 
 class JoinFormPOC(FlaskForm):
-    group = StringField('Group Code', validators=[DataRequired()])
+    group = StringField('Group Code', validators=[DataRequired(), AlphaNumeric()])
     submit10 = SubmitField('Join')
 
     def validate_group(self, group):
@@ -26,7 +27,7 @@ class JoinFormPOC(FlaskForm):
             raise(ValidationError('Game does not exist'))
 
 class CreateForm(FlaskForm):
-    group = StringField('Group Code', validators=[DataRequired()])
+    group = StringField('Group Code', validators=[DataRequired(), AlphaNumeric()])
     submit2 = SubmitField('Create')
 
     def validate_group(self, group):
